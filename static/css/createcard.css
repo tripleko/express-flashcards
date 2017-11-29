@@ -1,0 +1,13 @@
+.CodeMirror {
+    height: 48em;
+    width: 48em;
+}
+
+#cardTypeSelect {
+    margin-left: 1em;
+}
+
+.numInput {
+    margin-left: 1em;
+    width: 5em;
+}

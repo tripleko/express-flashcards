@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main-style.css">
+    <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="/css/vendor/font-awesome/css/font-awesome.min.css">
+    <script src="/js/vendor/jquery-3.2.1.min.js"></script>
+    <script>
+        function deleteCard(cardID) {
+            if (confirm('Are you sure you want to delete?')) {
+                $.post({
+                    url: '/deleteCard',
+                    data: {
+                        deckID: '<%= deckID %>',
+                        cardID: cardID
+                    },
+                    success: (val) => {
+                        console.log(val);
+                        if (val === 'deleted') {
+                            location.reload();
+                        }
+                    },
+                    dataType: 'text'
+                });
+            }
+        }
+    </script>
+    <title>Code Cards</title>
+</head>
+
+<body>
+    <div class="container">
+        <main class="main">
+            <div class="row">
+                <div class="col">
+                    <h4>Card List:
+                        <%= deckName %>
+                    </h4>
+                </div>
+                <div class="col">
+                    <button type="button" onclick="location.href='/createcard/<%= deckID %>/';" class="btn btn-success float-right">Add Card</button>
+                </div>
+            </div>
+            <div class="row">
+                <p>
+                    <a href="/">(Back to deck list?)</a>
+                </p>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-striped table-bordered text-center">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Card Front</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Current Interval</th>
+                                <th scope="col">Best Interval</th>
+                                <th scope="col">Most Recent Study</th>
+                                <th scope="col">Delete?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var i=0; i < cardList.length; i++) { %>
+                                <tr>
+                                    <td>
+                                        <a href="/editcard/<%= deckID %>/<%= cardList[i]._id %>">
+                                            <i class="fa fa-wrench" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <%= cardList[i].front %>
+                                    </td>
+
+                                    <td>
+                                        <%= cardList[i].cardType %>
+                                    </td>
+
+                                    <td>
+                                        <%= cardList[i].currentInterval %>
+                                    </td>
+
+                                    <td>
+                                        <%= cardList[i].bestInterval %>
+                                    </td>
+
+                                    <td>
+                                        <%= cardList[i].recentStudiedTime %>
+                                    </td>
+
+                                    <td>
+                                        <i class="fa fa-trash-o" id="trash<%= i %>" aria-hidden="true"></i>
+                                        <script>
+                                            $(document).ready(function () {
+                                                $("#trash<%= i %>").click(function () {
+                                                    deleteCard('<%= cardList[i]._id %>');
+                                                });
+                                            });
+                                        </script>
+                                    </td>
+                                </tr>
+                                <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/codemirror/lib/codemirror.js"></script>
+    <script src="/codemirror/mode/gfm/gfm.js"></script>
+    <script src="/codemirror/mode/javascript/javascript.js"></script>
+</body>
+
+</html>

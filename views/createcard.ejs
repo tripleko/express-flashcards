@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main-style.css">
+    <link rel="stylesheet" href="/css/createcard.css">
+    <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="/codemirror/theme/monokai.css">
+    <link rel="stylesheet" href="/css/vendor/font-awesome/css/font-awesome.min.css">
+    <script src="/js/vendor/jquery-3.2.1.min.js"></script>
+
+    <title>Code Cards</title>
+</head>
+
+<body>
+    <div class="container">
+        <main class="main">
+            <div class="row">
+                <h4>Add new card</h4>
+            </div>
+            <div class="row">
+                <p>
+                    <a href="/cardlist/<%= deckID %>">(Back to card list?)</a>
+                </p>
+            </div>
+
+            <div class="row justify-content-end">
+                <label for="cardTypeSelect">Card Type:</label>
+                <select id="cardTypeSelect" class="custom-select">
+                    <option value="simple">Simple</option>
+                </select>
+            </div>
+            <br>
+            <div class="row justify-content-end">
+                <label for="timeLimitInput">Max time allowed in seconds (no limit if 0):</label>
+                <input id="timeLimitInput" class="form-control" type="number" min="0" value="900">
+            </div>
+            <hr>
+            <div class="row justify-content-center">
+                Front
+            </div>
+
+            <hr>
+            <div class="row justify-content-center">
+                <form>
+                    <textarea id="frontCode"></textarea>
+                </form>
+            </div>
+            <hr>
+            <div class="row justify-content-center">
+                Back
+            </div>
+            <hr>
+            <div class="row justify-content-center">
+                <form>
+                    <textarea id="backCode"></textarea>
+                </form>
+            </div>
+            <hr>
+            <div class="row justify-content-center">
+                <button id="saveBtn" class="btn btn-primary" type="button">Save</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/codemirror/lib/codemirror.js"></script>
+    <script src="/codemirror/addon/mode/overlay.js"></script>
+    <script src="/codemirror/mode/xml/xml.js"></script>
+    <script src="/codemirror/mode/markdown/markdown.js"></script>
+    <script src="/codemirror/mode/gfm/gfm.js"></script>
+    <script src="/codemirror/mode/javascript/javascript.js"></script>
+    <script src="/codemirror/mode/python/python.js"></script>
+    <script src="/codemirror/mode/css/css.js"></script>
+    <script src="/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="/codemirror/mode/clike/clike.js"></script>
+    <script src="/codemirror/mode/meta.js"></script>
+    <script>
+        let deckID = "<%= deckID %>";
+    </script>
+    <script src="/js/createcard.js"></script>
+</body>
+
+</html>
